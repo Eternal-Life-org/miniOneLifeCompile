@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-PLATFORM=$(cat PLATFORM_OVERRIDE)
+PLATFORM=1
 if [[ $PLATFORM != 1 ]] && [[ $PLATFORM != 5 ]]; then PLATFORM=${1-1}; fi
 if [[ $PLATFORM != 1 ]] && [[ $PLATFORM != 5 ]]; then
 	echo "Usage: 1 for Linux (Default), 5 for XCompiling for Windows"
