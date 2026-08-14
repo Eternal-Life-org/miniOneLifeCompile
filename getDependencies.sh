@@ -71,6 +71,30 @@ if [ ! -d l*png* ]; then
 	popd
 fi
 
+# Getting freetype (CJK font rendering for minorGems/game/Font.cpp)
+# Installed to a LOCAL prefix (not the sysroot) so no sudo is needed;
+# Makefile.MinGWCross points -I/-L at /mnt/d/root/dependencies/freetype_mingw.
+if [ ! -d freetype_mingw ]; then
+	pushd .
+	wget https://download.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.gz -O- | tar xfz -
+	cd freetype-2.13.2
+	./configure \
+		--host=i686-w64-mingw32 \
+		--prefix=/mnt/d/root/dependencies/freetype_mingw \
+		--enable-static \
+		--disable-shared \
+		--without-harfbuzz \
+		--without-bzip2 \
+		--with-png=no \
+		--with-zlib=no
+	# CCexe=gcc: build the host tool `apinames` with the NATIVE gcc, not the
+	# cross compiler. Default CCexe=$(CC) builds apinames as a Windows exe that
+	# cannot run under WSL, failing with "could not open objs/ftexport.sym".
+	make CCexe=gcc
+	make install
+	popd
+fi
+
 # Getting discord_game_sdk
 if [ ! -d discord_game_sdk ]; then
 	wget https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip
