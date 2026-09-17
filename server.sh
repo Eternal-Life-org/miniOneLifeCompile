@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-AUTORUN=$(cat AUTORUN)
 PLATFORM=$(cat PLATFORM_OVERRIDE)
 if [[ $PLATFORM != 1 ]] && [[ $PLATFORM != 5 ]]; then PLATFORM=${1-1}; fi
 if [[ $PLATFORM != 1 ]] && [[ $PLATFORM != 5 ]]; then
@@ -21,8 +20,8 @@ cd ../..
 
 
 ##### Create Game Folder
-mkdir -p output
-cd output
+mkdir -p output/server
+cd output/server
 
 FOLDERS="objects transitions categories tutorialMaps"
 TARGET="."
@@ -44,4 +43,5 @@ if [[ $PLATFORM == 5 ]]; then mv ../OneLife/server/OneLifeServer.exe .; fi
 if [[ $PLATFORM == 1 ]]; then mv ../OneLife/server/OneLifeServer .; fi
 
 popd
-if [[ $AUTORUN == 1 ]]; then ./runServer.sh; fi
+
+echo "Done"
