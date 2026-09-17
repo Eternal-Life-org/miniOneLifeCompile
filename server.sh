@@ -20,8 +20,8 @@ cd ../..
 
 
 ##### Create Game Folder
-mkdir -p output/server
-cd output/server
+mkdir -p output
+cd output
 
 FOLDERS="objects transitions categories tutorialMaps"
 TARGET="."
